@@ -26,12 +26,11 @@ public class UserMealsUtil {
         );
         System.out.println("cycles");
         for (UserMealWithExceed um : getFilteredWithExceeded(mealList, LocalTime.of(7, 0), LocalTime.of(12, 0), 2000)) {
-            System.out.println(um.getDateTime() + "  " + um.getDescription() + "  " + um.getCalories() + "  " + um.getExceed());
+            System.out.println(um.toString());
         }
         System.out.println("Stream API");
-
         List<UserMealWithExceed> mealWithList = getFilteredWithExceededStream(mealList, LocalTime.of(7, 0), LocalTime.of(12, 0), 2000);
-        mealWithList.forEach(um -> System.out.println(um.getDateTime() + "  " + um.getDescription() + "  " + um.getCalories() + "  " + um.getExceed()));
+        mealWithList.forEach(System.out::println);
     }
 
     public static List<UserMealWithExceed> getFilteredWithExceeded(List<UserMeal> mealList, LocalTime startTime, LocalTime endTime, int caloriesPerDay) {
@@ -42,7 +41,7 @@ public class UserMealsUtil {
 
         List<UserMealWithExceed> mealWithList = new ArrayList<>();
         for (UserMeal um : mealList) {
-            if (um.getLocalTime().isAfter(startTime) && um.getLocalTime().isBefore(endTime)) {
+            if (TimeUtil.isBetween(um.getLocalTime(), startTime, endTime)) {
                 mealWithList.add(
                         new UserMealWithExceed(
                                 um.getDateTime(),
@@ -61,12 +60,12 @@ public class UserMealsUtil {
 
         return mealList
                 .stream()
+                .filter(mealWithExceed -> TimeUtil.isBetween(mealWithExceed.getLocalTime(), startTime, endTime))
                 .map(meal -> new UserMealWithExceed(
                         meal.getDateTime(),
                         meal.getDescription(),
                         meal.getCalories(),
                         caloriesOfDayMap.get(meal.getLocalDate()) > caloriesPerDay))
-                .filter(mealWithExceed -> mealWithExceed.getLocalTime().isAfter(startTime) && mealWithExceed.getLocalTime().isBefore(endTime))
                 .collect(Collectors.toList());
     }
 }
