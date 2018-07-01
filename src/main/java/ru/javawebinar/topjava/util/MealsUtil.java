@@ -30,7 +30,7 @@ public class MealsUtil {
 
         System.out.println(getFilteredWithExceededByCycle(meals, LocalTime.of(7, 0), LocalTime.of(12, 0), 2000));
         System.out.println(getFilteredWithExceededInOnePass(meals, LocalTime.of(7, 0), LocalTime.of(12, 0), 2000));
-        System.out.println(getFilteredWithExceededInOnePass2(meals, LocalTime.of(7, 0), LocalTime.of(12, 0), 2000));
+        System.out.println(getFilteredWithExceededInOnePass2(meals, LocalTime.of(7, 0), LocalTime.of(12, 0), 2000, true));
     }
 
     public static List<MealWithExceed> getFilteredWithExceeded(List<Meal> meals, LocalTime startTime, LocalTime endTime, int caloriesPerDay) {
@@ -72,14 +72,24 @@ public class MealsUtil {
         }).collect(toList());
     }
 
-    public static List<MealWithExceed> getFilteredWithExceededInOnePass2(List<Meal> meals, LocalTime startTime, LocalTime endTime, int caloriesPerDay) {
+    public static List<MealWithExceed> getFilteredWithExceededInOnePass2(List<Meal> meals, int caloriesPerDay, boolean filter) {
+        return getFilteredWithExceededInOnePass2(meals, null, null, caloriesPerDay, filter);
+    }
+
+    ;
+
+    public static List<MealWithExceed> getFilteredWithExceededInOnePass2(List<Meal> meals, LocalTime startTime, LocalTime endTime, int caloriesPerDay, boolean filter) {
         final class Aggregate {
             private final List<Meal> dailyMeals = new ArrayList<>();
             private int dailySumOfCalories;
 
             private void accumulate(Meal meal) {
                 dailySumOfCalories += meal.getCalories();
-                if (TimeUtil.isBetween(meal.getDateTime().toLocalTime(), startTime, endTime)) {
+                if (filter) {
+                    if (TimeUtil.isBetween(meal.getDateTime().toLocalTime(), startTime, endTime)) {
+                        dailyMeals.add(meal);
+                    }
+                } else {
                     dailyMeals.add(meal);
                 }
             }
