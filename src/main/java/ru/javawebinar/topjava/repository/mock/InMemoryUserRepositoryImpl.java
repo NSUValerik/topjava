@@ -18,9 +18,9 @@ public class InMemoryUserRepositoryImpl implements UserRepository {
     private Map<Integer, User> repository = new HashMap<>();
     private AtomicInteger counter = new AtomicInteger(0);
 
-    {
+    /*{
         UsersUtil.USERS.forEach(this::save);
-    }
+    }*/
 
     @Override
     public boolean delete(int id) {
@@ -31,11 +31,13 @@ public class InMemoryUserRepositoryImpl implements UserRepository {
 
     @Override
     public User save(User user) {
-        log.info("save {}", user);
         if (user.isNew()) {
             user.setId(counter.incrementAndGet());
             repository.put(user.getId(), user);
+            log.info("save {}", user);
+            return user;
         }
+        log.info("update {}", user);
         return repository.computeIfPresent(user.getId(), (id, oldUser) -> user);
     }
 
