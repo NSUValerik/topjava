@@ -19,23 +19,23 @@ public class MealRestController {
         this.service = service;
     }
 
-    public Meal create(Meal meal, Integer userID) {
-        return service.create(meal, userID);
+    public Meal create(Meal meal) {
+        return service.create(meal);
     }
 
-    public void delete(int id, Integer userID) {
-        service.delete(id, userID);
+    public void delete(int id) {
+        service.delete(id);
     }
 
-    public void update(Meal meal, Integer userID) {
-        service.update(meal, userID);
+    public void update(Meal meal) {
+        service.update(meal);
     }
 
-    public List<Meal> getAll(Integer userID, int userCalories) {
-        return service.getAll(userID);
+    public List<Meal> getAll() {
+        return service.getAll();
     }
 
-    public List<MealWithExceed> getAllWithExceed(Integer userID, int userCalories) {
-        return MealsUtil.getWithExceeded(service.getAll(userID), userCalories);
+    public List<MealWithExceed> getAllWithExceed(int userCalories) {
+        return MealsUtil.getWithExceeded(service.getAll(), userCalories);
     }
 }
