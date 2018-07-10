@@ -21,12 +21,12 @@ public class SpringMain {
     public static void main(String[] args) {
         // java 7 Automatic resource management
         try (ConfigurableApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/spring-app.xml")) {
-            System.out.println("Bean definition names: " + Arrays.toString(appCtx.getBeanDefinitionNames()) + "\n");
-/*
+/*            System.out.println("Bean definition names: " + Arrays.toString(appCtx.getBeanDefinitionNames()) + "\n");
+*//*
             AdminRestController adminUserController = appCtx.getBean(AdminRestController.class);
             //создадим админа
             adminUserController
-                    .create(new User(null, "Bob", "user@user.com", "user123", Role.ROLE_USER));*/
+                    .create(new User(null, "Bob", "user@user.com", "user123", Role.ROLE_USER));*//*
 
             ProfileRestController userController = appCtx.getBean(ProfileRestController.class);
             //создадим юзера
@@ -77,7 +77,7 @@ public class SpringMain {
             } catch (NotFoundException e) {
                 System.out.println("Нельзя изменить еду другого пользователя \n" + e.getMessage());
             }
-            appCtx.close();
+            appCtx.close();*/
         }
     }
 }
