@@ -24,7 +24,7 @@ import static org.junit.Assert.*;
 })
 @RunWith(SpringRunner.class)
 @Sql(scripts = "classpath:db/populateDB.sql", config = @SqlConfig(encoding = "UTF-8"))
-public class MealRepositoryTest {
+public class JdbcMealRepositoryTest {
 
     @Autowired
     private AdminRestController controller;

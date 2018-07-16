@@ -5,6 +5,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.test.context.ContextConfiguration;
@@ -26,8 +27,7 @@ import static ru.javawebinar.topjava.UserTestData.ADMIN;
 
 @ContextConfiguration({
         "classpath:spring/spring-app.xml",
-        "classpath:spring/spring-db.xml",
-        "classpath:spring/spring-test.xml"
+        "classpath:spring/spring-db.xml"
 })
 @RunWith(SpringRunner.class)
 @Sql(scripts = "classpath:db/populateDB.sql", config = @SqlConfig(encoding = "UTF-8"))
@@ -37,11 +37,12 @@ public class InMemoryAdminRestControllerSpringTest {
     private AdminRestController controller;
 
     @Autowired
-    private InMemoryMealRepositoryImpl repository;
+    @Qualifier("mockUser")
+    private InMemoryUserRepositoryImpl repository;
 
     @Before
     public void setUp() throws Exception {
-        //repository =
+        repository.init();
     }
 
     @Test
