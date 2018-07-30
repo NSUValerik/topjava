@@ -19,6 +19,9 @@ public interface CrudMealRepository extends JpaRepository<Meal, Integer> {
     @Transactional
     <S extends Meal> S save(S s);
 
+    @Override
+    Meal getOne(Integer integer);
+
     @Transactional
     @Modifying
     @Query("DELETE FROM Meal m WHERE m.id=:id AND m.user.id=:userId")
