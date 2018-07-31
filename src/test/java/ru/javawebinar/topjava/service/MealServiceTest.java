@@ -37,10 +37,6 @@ import static ru.javawebinar.topjava.UserTestData.USER_ID;
 @ActiveProfiles(resolver = ActiveDbProfileResolver.class)
 public abstract class MealServiceTest extends ServiceTest{
 
-    private static final Logger log = getLogger("result");
-
-    private static StringBuilder results = new StringBuilder();
-
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
