@@ -2,9 +2,11 @@ package ru.javawebinar.topjava.service;
 
 import org.junit.AfterClass;
 import org.junit.Rule;
+import org.junit.rules.ExpectedException;
 import org.junit.rules.Stopwatch;
 import org.junit.runner.Description;
 import org.slf4j.Logger;
+import org.slf4j.bridge.SLF4JBridgeHandler;
 
 import java.util.concurrent.TimeUnit;
 
@@ -15,6 +17,14 @@ public abstract class ServiceTest {
     private static final Logger log = getLogger("result");
 
     private static StringBuilder results = new StringBuilder();
+
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
+
+    static {
+        // needed only for java.util.logging (postgres driver)
+        SLF4JBridgeHandler.install();
+    }
 
     @Rule
     public Stopwatch stopwatch = new Stopwatch() {
@@ -34,19 +44,47 @@ public abstract class ServiceTest {
                 "\n---------------------------------");
     }
 
-    abstract void delete() throws Exception;
+    void delete() throws Exception {
 
-    abstract void deleteNotFound() throws Exception;
+    }
 
-    abstract void create() throws Exception;
+    ;
 
-    abstract void get() throws Exception;
+    void deleteNotFound() throws Exception {
 
-    abstract void getNotFound() throws Exception;
+    }
 
-    abstract void update() throws Exception;
+    ;
 
-    abstract void getAll() throws Exception;
+    void create() throws Exception {
+
+    }
+
+    ;
+
+    void get() throws Exception {
+
+    }
+
+    ;
+
+    void getNotFound() throws Exception {
+
+    }
+
+    ;
+
+    void update() throws Exception {
+
+    }
+
+    ;
+
+    void getAll() throws Exception {
+
+    }
+
+    ;
 
 
 }

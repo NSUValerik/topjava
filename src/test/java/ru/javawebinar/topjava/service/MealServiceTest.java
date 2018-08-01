@@ -37,16 +37,6 @@ import static ru.javawebinar.topjava.UserTestData.USER_ID;
 @ActiveProfiles(resolver = ActiveDbProfileResolver.class)
 public abstract class MealServiceTest extends ServiceTest{
 
-    @Rule
-    public ExpectedException thrown = ExpectedException.none();
-
-
-    static {
-        // needed only for java.util.logging (postgres driver)
-        SLF4JBridgeHandler.install();
-    }
-
-
     @Autowired
     private MealService service;
 
